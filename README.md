@@ -2,6 +2,8 @@
 
 Sistema multiplataforma para el monitoreo en tiempo real de surtidores de combustible, registro de ventas, control de inventario y gestión de alertas críticas.
 
+**Autor:** Leonardo Nogales Torres
+
 ---
 
 ##  Stack Tecnológico
@@ -9,13 +11,13 @@ Sistema multiplataforma para el monitoreo en tiempo real de surtidores de combus
 * **Frontend:** VanillaJS
 * **Backend & Base de Datos:** Supabase
 * **Arquitectura:** MVC + Patrones de Diseño
-* **Calidad & Testing:**
+* **UI / Diseño:** [Ver prototipo en Figma](https://www.figma.com/design/YXk5gWIib7JWlLfUCoCAQD/Surtidor?node-id=0-1&t=MfZh1w3OqIcVFnFr-1)
 * **Despliegue:** Vercel
-* **UI:** Figma
-link: https://www.figma.com/design/YXk5gWIib7JWlLfUCoCAQD/Surtidor?node-id=0-1&t=MfZh1w3OqIcVFnFr-1 
+* **Calidad & Testing:** *(En desarrollo)*
+
 ---
 
-##  Arquitectura y Patrones de Diseño
+##  Arquitectura y Patrones de Diseño *(En desarrollo, dispuesto a cambio)*
 
 El núcleo de la aplicación utiliza tres patrones de diseño fundamentales para garantizar escalabilidad y desacoplamiento:
 
@@ -23,5 +25,6 @@ El núcleo de la aplicación utiliza tres patrones de diseño fundamentales para
 2. **Adapter Pattern (Estructural):** Abstracción de la capa de persistencia (`DatabaseAdapter`) para alternar fluidamente entre almacenamiento local (*SQLite*) y almacenamiento en la nube (*Supabase*).
 3. **Observer Pattern (Comportamiento):** Suscripción en tiempo real a los eventos de los surtidores para el disparo de alertas instantáneas cuando el nivel cae por debajo del umbral crítico.
 
-###  Lógica de Bajo Nivel (Aritmética Binaria)
+###  Lógica de Bajo Nivel (Aritmética Binaria) *(En desarrollo, dispuesto a cambio)*
+
 Los estados operativos del surtidor (*Activo, Inactivo, Mantenimiento, Alerta Nivel Bajo, Fuga*) se almacenan comprimidos mediante **máscaras de bits (bitmasks)** en la columna `estado_mask`. Los reportes ejecutan decodificadores con operaciones *bitwise* (`&`, `|`, `>>`) para descomprimir y presentar el diagnóstico.
