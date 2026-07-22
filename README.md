@@ -11,8 +11,8 @@ Sistema multiplataforma para el monitoreo en tiempo real de surtidores de combus
 * **Arquitectura:** MVC + Patrones de Diseño
 * **Calidad & Testing:**
 * **Despliegue:** Vercel
-* **UI:** Stitch
-link: https://stitch.withgoogle.com/projects/14245358886189861201 
+* **UI:** Figma
+link: https://www.figma.com/design/YXk5gWIib7JWlLfUCoCAQD/Surtidor?node-id=0-1&t=MfZh1w3OqIcVFnFr-1 
 ---
 
 ##  Arquitectura y Patrones de Diseño
