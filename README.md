@@ -28,3 +28,16 @@ El núcleo de la aplicación utiliza tres patrones de diseño fundamentales para
 ###  Lógica de Bajo Nivel (Aritmética Binaria) *(En desarrollo, dispuesto a cambio)*
 
 Los estados operativos del surtidor (*Activo, Inactivo, Mantenimiento, Alerta Nivel Bajo, Fuga*) se almacenan comprimidos mediante **máscaras de bits (bitmasks)** en la columna `estado_mask`. Los reportes ejecutan decodificadores con operaciones *bitwise* (`&`, `|`, `>>`) para descomprimir y presentar el diagnóstico.
+
+---
+
+## Cronograma de Desarrollo
+
+| Fase | Contenido | Estado |
+|---|---|---|
+| **Fase 1 – Diseño e Infraestructura** | Repositorio, esquema SQLite, wireframes en Figma | 🔄 En curso |
+| **Fase 2 – Núcleo de Sistemas Digitales** | Clases/funciones de lógica binaria, decodificador y compuertas de alerta | ⬜ Pendiente |
+| **Fase 3 – CRUDs y Patrones** | Interfaces de Surtidores, Ventas y Reportes con Singleton/Repository/Observer | ⬜ Pendiente |
+| **Fase 4 – Calidad y Despliegue** | Pruebas unitarias, SonarQube, deploy en Vercel/Render | ⬜ Pendiente |
+
+---
