@@ -6,12 +6,13 @@ Sistema multiplataforma para el monitoreo en tiempo real de surtidores de combus
 
 ##  Stack Tecnológico
 
-* **Frontend / App:**
+* **Frontend:** VanillaJS
 * **Backend & Base de Datos:** Supabase
 * **Arquitectura:** MVC + Patrones de Diseño
 * **Calidad & Testing:**
 * **Despliegue:** Vercel
-
+* **UI:** Stitch
+link: https://stitch.withgoogle.com/projects/14245358886189861201 
 ---
 
 ##  Arquitectura y Patrones de Diseño
