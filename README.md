@@ -17,6 +17,12 @@ Sistema multiplataforma para el monitoreo en tiempo real de surtidores de combus
 
 ---
 
+## Vista previa del proyecto
+
+![Google Stitch Preview](assets/screen.png)
+
+---
+
 ##  Arquitectura y Patrones de Diseño *(En desarrollo, dispuesto a cambio)*
 
 El núcleo de la aplicación utiliza tres patrones de diseño fundamentales para garantizar escalabilidad y desacoplamiento:
