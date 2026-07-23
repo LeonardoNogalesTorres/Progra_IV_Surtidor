@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GasAdmin Pro | Gestión de Surtidores</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body class="bg-[#f6faff] text-[#171c20]">
+  <div class="flex">
+    <aside id="sidebar-container"></aside>
+
+    <main class="ml-[260px] flex-1 min-h-screen p-6">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h1 class="text-2xl font-bold">Gestión de Surtidores</h1>
+          <p class="text-sm text-slate-500">Monitoreo técnico e inventario en tiempo real</p>
+        </div>
+        <button id="btn-nuevo-surtidor" class="bg-sky-600 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-sky-700">
+          <span class="material-symbols-outlined">add</span> NUEVO SURTIDOR
+        </button>
+      </div>
+
+      <!-- Grid de Surtidores renderizado por JS -->
+      <div id="surtidores-container" class="grid grid-cols-1 xl:grid-cols-2 gap-6"></div>
+    </main>
+  </div>
+
+  <script type="module" src="js/controllers/SurtidoresController.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GasAdmin Pro | Punto de Venta</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-[#f6faff] text-[#171c20]">
+  <div class="flex">
+    <aside id="sidebar-container"></aside>
+
+    <main class="ml-[260px] flex-1 min-h-screen p-6">
+      <h1 class="text-2xl font-bold mb-6">Registro de Ventas</h1>
+
+      <div class="grid grid-cols-12 gap-6 max-w-7xl">
+        <!-- Formulario de Venta -->
+        <div class="col-span-12 lg:col-span-7 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+          <form id="form-venta" class="space-y-6">
+            <div>
+              <label class="block text-sm font-semibold mb-2">Seleccionar Surtidor</label>
+              <select id="select-surtidor" class="w-full border border-slate-300 rounded-lg p-3 bg-white font-medium">
+                <!-- Opciones dinámicas -->
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold mb-2">Tipo de Combustible</label>
+              <input id="input-combustible" type="text" class="w-full bg-slate-100 border border-slate-200 rounded-lg p-3 font-bold text-slate-700" readonly value="Gasolina Especial"/>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold mb-2">Cantidad (Litros)</label>
+              <input id="input-litros" type="number" step="0.01" min="1" value="10.00" class="w-full text-3xl font-black text-center border border-slate-300 rounded-xl p-4"/>
+            </div>
+
+            <button type="submit" class="w-full bg-sky-600 text-white font-bold py-4 rounded-xl hover:bg-sky-700 transition-colors flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined">check_circle</span> Processar Venta
+            </button>
+          </form>
+        </div>
+
+        <!-- Ticket Preview -->
+        <div class="col-span-12 lg:col-span-5 bg-white p-6 rounded-xl border border-slate-200 shadow-sm font-mono text-sm">
+          <h2 class="text-center font-bold text-lg mb-4">RECIBO DE DESPACHO</h2>
+          <div class="space-y-3 border-t border-b border-dashed border-slate-300 py-4">
+            <div class="flex justify-between"><span>Surtidor:</span><span id="ticket-surtidor" class="font-bold">#--</span></div>
+            <div class="flex justify-between"><span>Litros:</span><span id="ticket-litros" class="font-bold">0.00 L</span></div>
+            <div class="flex justify-between"><span>Precio/L:</span><span id="ticket-precio" class="font-bold">$0.00</span></div>
+            <div class="flex justify-between text-lg font-black border-t pt-2"><span>TOTAL:</span><span id="ticket-total">$0.00</span></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/controllers/VentasController.js"></script>
+</body>
+</html>
