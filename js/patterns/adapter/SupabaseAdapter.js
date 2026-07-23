@@ -31,4 +31,22 @@ export class SupabaseAdapter {
         if (error) throw error;
         return data;
     }
+
+    async obtenerAlertas() {
+        const { data, error } = await supabase
+            .from('alertas')
+            .select('*')
+            .order('fecha', { ascending: false });
+        if (error) throw error;
+        return data;
+    }
+
+    async atenderAlerta(id) {
+        const { data, error } = await supabase
+            .from('alertas')
+            .update({ estado: 'atendida' })
+            .eq('id', id);
+        if (error) throw error;
+        return data;
+    }
 }
