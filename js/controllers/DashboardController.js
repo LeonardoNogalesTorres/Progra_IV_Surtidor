@@ -9,72 +9,69 @@ class DashboardController {
   }
 
   async init() {
-    // 1. Renderizar el Sidebar
     renderSidebar('index.html');
-
-    // 2. Cargar datos
-    await this.cargarKPIs();
-    await this.cargarSurtidores();
+    await this.cargarDashboard();
   }
 
-  async cargarKPIs() {
+  async cargarDashboard() {
     try {
-      const ventas = await this.adapter.obtenerVentasHoy();
-      const surtidores = await this.adapter.obtenerSurtidores();
-      const alertas = await this.adapter.obtenerAlertasPendientes();
+      const [surtidores, ventas, alertas] = await Promise.all([
+        this.adapter.obtenerSurtidores(),
+        this.adapter.obtenerVentasHoy(),
+        this.adapter.obtenerAlertas()
+      ]);
 
-      // Totales
-      const totalMonto = ventas.reduce((acc, v) => acc + Number(v.total), 0);
-      const totalLitros = ventas.reduce((acc, v) => acc + Number(v.litros), 0);
-      
-      // Surtidores operativos (Bit 0 activo)
-      const operativos = surtidores.filter(s => s.estado_mask & BitwiseDecoder.OPERATIVO).length;
+      // --- KPIs ---
+      const totalMonto = ventas.reduce((acc, v) => acc + Number(v.total || 0), 0);
+      const totalLitros = ventas.reduce((acc, v) => acc + Number(v.litros || 0), 0);
+      const alertasPendientes = alertas.filter(a => a.estado === 'pendiente').length;
 
-      // Actualizar DOM
+      // Surtidores activos (Bit 0 = Operativo)
+      const activos = surtidores.filter(s => s.estado_mask & BitwiseDecoder.OPERATIVO).length;
+
       document.getElementById('kpi-total-ventas').textContent = `$${totalMonto.toFixed(2)}`;
       document.getElementById('kpi-total-litros').textContent = `${totalLitros.toFixed(2)} L`;
-      document.getElementById('kpi-surtidores-activos').textContent = `${operativos}/${surtidores.length}`;
-      document.getElementById('kpi-alertas-activas').textContent = alertas.length;
-    } catch (error) {
-      console.error("Error al cargar KPIs:", error);
-    }
-  }
+      document.getElementById('kpi-surtidores-activos').textContent = `${activos}/${surtidores.length}`;
+      document.getElementById('kpi-alertas-activas').textContent = alertasPendientes;
 
-  async cargarSurtidores() {
-    const container = document.getElementById('grid-surtidores-dashboard');
-    if (!container) return;
+      // --- Grid de Surtidores ---
+      const container = document.getElementById('grid-surtidores-dashboard');
+      if (!container) return;
 
-    try {
-      const surtidores = await this.adapter.obtenerSurtidores();
       container.innerHTML = '';
 
-      surtidores.forEach(surtidor => {
-        const porcentaje = Math.round((surtidor.nivel / surtidor.capacidad) * 100);
-        const bitInfo = BitwiseDecoder.decodificarEstado(surtidor.estado_mask);
+      if (surtidores.length === 0) {
+        container.innerHTML = `<p class="text-slate-400 text-sm col-span-3">No hay surtidores registrados en Supabase.</p>`;
+        return;
+      }
 
-        // Color de la barra según nivel
+      surtidores.forEach(s => {
+        const porcentaje = Math.round((s.nivel / s.capacidad) * 100);
+        const bitInfo = BitwiseDecoder.decodificarEstado(s.estado_mask || 0);
+        const nombreCombustible = s.tipos_combustible?.nombre || 'Combustible';
+
         let barColor = 'bg-emerald-500';
         if (porcentaje <= 15) barColor = 'bg-red-500 animate-pulse';
         else if (porcentaje <= 40) barColor = 'bg-amber-500';
 
         container.innerHTML += `
-          <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm">
-            <div class="flex justify-between items-center mb-3">
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
+            <div class="flex justify-between items-start">
               <div>
-                <h3 class="font-bold text-base">Surtidor #${surtidor.numero}</h3>
-                <span class="text-xs font-semibold px-2 py-0.5 rounded ${porcentaje <= 15 ? 'bg-red-100 text-red-600' : 'bg-emerald-100 text-emerald-600'}">
+                <h3 class="font-black text-lg">Surtidor #${s.numero}</h3>
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded ${porcentaje <= 15 ? 'bg-red-100 text-red-600' : 'bg-emerald-100 text-emerald-700'}">
                   ${bitInfo.estados.join(' | ')}
                 </span>
               </div>
-              <span class="text-xs font-bold px-2.5 py-1 rounded bg-slate-800 text-white uppercase">
-                ${surtidor.combustible}
+              <span class="text-xs font-black px-2.5 py-1 rounded-lg bg-slate-900 text-white uppercase">
+                ${nombreCombustible}
               </span>
             </div>
 
             <div class="space-y-1">
-              <div class="flex justify-between text-xs font-medium text-slate-600">
+              <div class="flex justify-between text-xs font-semibold text-slate-500">
                 <span>Nivel de Tanque</span>
-                <span class="font-mono font-bold">${surtidor.nivel}L / ${surtidor.capacidad}L</span>
+                <span class="font-mono font-bold text-slate-800">${s.nivel}L / ${s.capacidad}L</span>
               </div>
               <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
                 <div class="h-full ${barColor} transition-all duration-500" style="width: ${porcentaje}%"></div>
@@ -83,11 +80,11 @@ class DashboardController {
           </div>
         `;
       });
-    } catch (error) {
-      container.innerHTML = `<p class="text-red-500">Error cargando surtidores: ${error.message}</p>`;
+
+    } catch (err) {
+      console.error("Error al cargar Dashboard:", err);
     }
   }
 }
 
-// Inicializar cuando cargue el DOM
 document.addEventListener('DOMContentLoaded', () => new DashboardController());

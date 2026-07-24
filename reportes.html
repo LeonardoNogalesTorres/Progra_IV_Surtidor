@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GasAdmin Pro | Diagnóstico & Reportes</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <title>GasAdmin Pro | Reportes & Bits</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -14,25 +14,20 @@
     <aside id="sidebar-container"></aside>
 
     <main class="ml-[260px] flex-1 min-h-screen p-6">
-      <h1 class="text-2xl font-bold mb-2">Diagnóstico Técnico y Reportes</h1>
-      <p class="text-slate-500 mb-6">Decodificación de máscaras de bits (`estado_mask`) en tiempo real</p>
+      <h1 class="text-2xl font-bold mb-1">Diagnóstico de Hardware & Bitmask</h1>
+      <p class="text-xs text-slate-500 mb-6">Decodificación bitwise del campo <code class="bg-slate-200 px-1 py-0.5 rounded">estado_mask</code></p>
 
-      <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-        <div class="bg-slate-50 p-4 border-b border-slate-200 font-bold flex items-center gap-2">
-          <span class="material-symbols-outlined text-sky-600">terminal</span> Decodificador de Hardware Bitmask
-        </div>
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
         <table class="w-full text-left border-collapse">
-          <thead class="bg-slate-100 text-xs text-slate-600 uppercase font-semibold">
+          <thead class="bg-slate-100 text-xs text-slate-600 uppercase font-semibold border-b border-slate-200">
             <tr>
               <th class="p-4">Surtidor</th>
-              <th class="p-4">Valor Entero</th>
-              <th class="p-4">Representación Binaria (4-bit)</th>
-              <th class="p-4">Flags Decodificados (Bitwise)</th>
+              <th class="p-4">Valor (Entero)</th>
+              <th class="p-4">Máscara Binaria (4 bits)</th>
+              <th class="p-4">Diagnóstico Bitwise</th>
             </tr>
           </thead>
-          <tbody id="tabla-reporte-bitmask" class="divide-y divide-slate-200 font-mono text-sm">
-            <!-- Filas decodificadas con BitwiseDecoder.js -->
-          </tbody>
+          <tbody id="tabla-reporte-bitmask" class="divide-y divide-slate-200 font-mono text-sm"></tbody>
         </table>
       </div>
     </main>

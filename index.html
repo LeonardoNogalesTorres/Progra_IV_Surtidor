@@ -3,55 +3,49 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GasAdmin Pro | Dashboard</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <title>GasAdmin Pro | Dashboard Admin</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body class="bg-[#f6faff] text-[#171c20] antialiased">
   <div class="flex">
-    <!-- Componente Navegación Lateral -->
     <aside id="sidebar-container"></aside>
 
     <main class="ml-[260px] flex-1 min-h-screen">
-      <!-- TopBar -->
-      <header class="flex justify-between items-center h-[64px] px-6 sticky top-0 bg-[#f6faff] border-b border-[#bec8d2] z-40">
+      <header class="flex justify-between items-center h-[64px] px-6 sticky top-0 bg-[#f6faff] border-b border-slate-200 z-40">
         <div class="flex items-center gap-4">
-          <h1 class="text-xl font-bold">Dashboard General</h1>
-          <span class="px-3 py-1 bg-slate-100 rounded-full text-xs font-bold text-emerald-600 flex items-center gap-2">
+          <h1 class="text-xl font-bold">Dashboard General (Panel Admin)</h1>
+          <span class="px-3 py-1 bg-emerald-100 rounded-full text-xs font-bold text-emerald-700 flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Supabase Live
           </span>
         </div>
       </header>
 
       <div class="p-6">
-        <!-- KPI Cards -->
+        <!-- Tarjetas KPI -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <div class="bg-white p-4 border border-slate-200 rounded-lg">
-            <span class="text-xs text-slate-500 font-semibold">Ventas del Día</span>
-            <p id="kpi-total-ventas" class="text-2xl font-bold">$0.00</p>
+          <div class="bg-white p-4 border border-slate-200 rounded-xl shadow-sm">
+            <span class="text-xs text-slate-500 font-semibold uppercase">Ventas de Hoy</span>
+            <p id="kpi-total-ventas" class="text-2xl font-black mt-1">$0.00</p>
           </div>
-          <div class="bg-white p-4 border border-slate-200 rounded-lg">
-            <span class="text-xs text-slate-500 font-semibold">Litros Vendidos</span>
-            <p id="kpi-total-litros" class="text-2xl font-bold">0.00 L</p>
+          <div class="bg-white p-4 border border-slate-200 rounded-xl shadow-sm">
+            <span class="text-xs text-slate-500 font-semibold uppercase">Volumen Vendido</span>
+            <p id="kpi-total-litros" class="text-2xl font-black mt-1">0.00 L</p>
           </div>
-          <div class="bg-white p-4 border border-slate-200 rounded-lg">
-            <span class="text-xs text-slate-500 font-semibold">Surtidores Operativos</span>
-            <p id="kpi-surtidores-activos" class="text-2xl font-bold">0/0</p>
+          <div class="bg-white p-4 border border-slate-200 rounded-xl shadow-sm">
+            <span class="text-xs text-slate-500 font-semibold uppercase">Surtidores Activos</span>
+            <p id="kpi-surtidores-activos" class="text-2xl font-black mt-1">0/0</p>
           </div>
-          <div class="bg-white p-4 border border-slate-200 rounded-lg border-l-4 border-red-500">
-            <span class="text-xs text-slate-500 font-semibold">Alertas Activas</span>
-            <p id="kpi-alertas-activas" class="text-2xl font-bold text-red-600">0</p>
+          <div class="bg-white p-4 border border-slate-200 rounded-xl shadow-sm border-l-4 border-red-500">
+            <span class="text-xs text-slate-500 font-semibold uppercase">Alertas Pendientes</span>
+            <p id="kpi-alertas-activas" class="text-2xl font-black text-red-600 mt-1">0</p>
           </div>
         </div>
 
-        <!-- Surtidores Grid (Dinamico) -->
-        <h2 class="text-lg font-semibold mb-4">Estado de Surtidores</h2>
-        <div id="grid-surtidores-dashboard" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- Cargado mediante DashboardController.js -->
-        </div>
+        <h2 class="text-lg font-bold mb-4">Monitoreo de Surtidores y Niveles</h2>
+        <div id="grid-surtidores-dashboard" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
       </div>
     </main>
   </div>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GasAdmin Pro | Iniciar Sesión</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-[#f6faff] text-[#171c20] min-h-screen flex items-center justify-center p-4">
+
+  <div class="w-full max-w-md bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden">
+    <div class="bg-slate-900 text-white p-6 text-center">
+      <div class="inline-flex items-center justify-center w-12 h-12 bg-sky-500/20 text-sky-400 rounded-xl mb-3">
+        <span class="material-symbols-outlined text-3xl">local_gas_station</span>
+      </div>
+      <h1 class="text-2xl font-black text-sky-400">GasAdmin Pro</h1>
+      <p class="text-xs text-slate-400 mt-1">Control de Estación de Servicio</p>
+    </div>
+
+    <form id="form-login" class="p-6 space-y-4">
+      <div id="login-error" class="hidden p-3 bg-red-100 border border-red-300 text-red-700 text-xs rounded-lg font-semibold"></div>
+
+      <div>
+        <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Correo Electrónico</label>
+        <div class="relative">
+          <input id="login-email" type="email" required placeholder="admin@gasadmin.com" class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl text-sm font-medium focus:ring-2 focus:ring-sky-500 outline-none"/>
+          <span class="material-symbols-outlined absolute left-3 top-3.5 text-slate-400 text-lg">mail</span>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Contraseña</label>
+        <div class="relative">
+          <input id="login-password" type="password" required placeholder="••••••••" class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl text-sm font-medium focus:ring-2 focus:ring-sky-500 outline-none"/>
+          <span class="material-symbols-outlined absolute left-3 top-3.5 text-slate-400 text-lg">lock</span>
+        </div>
+      </div>
+
+      <button type="submit" id="btn-submit-login" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-sky-600/20 flex items-center justify-center gap-2">
+        <span>Ingresar</span>
+        <span class="material-symbols-outlined text-lg">arrow_forward</span>
+      </button>
+    </form>
+
+    <div class="p-4 bg-slate-50 border-t border-slate-200 text-center">
+      <p class="text-[11px] font-bold text-slate-400 uppercase mb-2">Credenciales de Prueba:</p>
+      <div class="grid grid-cols-2 gap-2">
+        <button id="btn-fill-admin" type="button" class="py-2 bg-white border border-slate-300 rounded-lg text-xs font-bold text-slate-700 flex items-center justify-center gap-1 hover:bg-slate-100">
+          <span class="material-symbols-outlined text-sm text-amber-500">admin_panel_settings</span> Admin
+        </button>
+        <button id="btn-fill-client" type="button" class="py-2 bg-white border border-slate-300 rounded-lg text-xs font-bold text-slate-700 flex items-center justify-center gap-1 hover:bg-slate-100">
+          <span class="material-symbols-outlined text-sm text-sky-500">person</span> Cliente
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/controllers/AuthController.js"></script>
+</body>
+</html>
