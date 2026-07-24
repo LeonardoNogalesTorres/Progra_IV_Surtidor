@@ -19,7 +19,21 @@ Sistema multiplataforma para el monitoreo en tiempo real de surtidores de combus
 
 ## Vista previa del proyecto
 
-![Google Stitch Preview](assets/screen.png)
+![Google Stitch Preview](assets/screen_2.png)
+
+---
+
+##  Credenciales de Acceso para Pruebas
+
+Para explorar el sistema sin necesidad de registrarte, puedes iniciar sesión con alguno de los siguientes perfiles:
+
+* **👑 Administrador**
+  * **Email:** `admin@gasadmin.com`
+  * **Password:** `admin123`
+
+* **👤 Usuario Estándar**
+  * **Email:** `juan@gmail.com`
+  * **Password:** `user123`
 
 ---
 
@@ -37,13 +51,14 @@ Los estados operativos del surtidor (*Activo, Inactivo, Mantenimiento, Alerta Ni
 
 ---
 
-## Cronograma de Desarrollo
+## 📅 Cronograma de Desarrollo
 
 | Fase | Contenido | Estado |
 |---|---|---|
-| **Fase 1 – Diseño e Infraestructura** | Repositorio, esquema SQLite, wireframes en Figma | 🔄 En curso |
-| **Fase 2 – Núcleo de Sistemas Digitales** | Clases/funciones de lógica binaria, decodificador y compuertas de alerta | ⬜ Pendiente |
-| **Fase 3 – CRUDs y Patrones** | Interfaces de Surtidores, Ventas y Reportes con Singleton/Repository/Observer | ⬜ Pendiente |
-| **Fase 4 – Calidad y Despliegue** | Pruebas unitarias, SonarQube, deploy en Vercel/Render | ⬜ Pendiente |
+| **Fase 1 – Setup, Base de Datos & Roles** | Repositorio GitHub, Esquema relacional en Supabase (PostgreSQL), Triggers automáticos, Control RLS y Sistema de Autenticación por Roles (*Admin / Cliente*). | ✅ Completado |
+| **Fase 2 – UI/UX & Maquetación Web** | Prototipado e interfaz Web Responsive en Vanilla JS + Tailwind CSS (Dashboard, Surtidores, Punto de Venta, Panel de Alertas y Reportes). | ✅ Completado |
+| **Fase 3 – Patrones de Diseño & Lógica MVC** | Implementación de **Factory** (Instanciación de Surtidores), **Adapter** (Persistencia Supabase) y **Observer** (Alertas en Tiempo Real) integrados en controladores MVC. | 🔄 En curso |
+| **Fase 4 – Núcleo Binario & Diagnóstico** | Funciones de Aritmética Binaria Operadores **Bitwise** y Decodificador de `estado_mask` para reportes técnicos de hardware. | 🔄 En curso |
+| **Fase 5 – Calidad, Testing & Deploy** | Pruebas unitarias en Jest, análisis estático de código en SonarQube y despliegue continuo en Vercel/Render. | ⬜ Pendiente |
 
 ---
