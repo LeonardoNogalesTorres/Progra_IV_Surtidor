@@ -1,3 +1,5 @@
+// js/controllers/AlertasController.js
+
 import { SupabaseAdapter } from '../patterns/adapter/SupabaseAdapter.js';
 import { AlertaObserver } from '../patterns/observer/AlertaObserver.js';
 import { renderSidebar } from '../components/Sidebar.js';
@@ -10,16 +12,13 @@ class AlertasController {
   }
 
   async init() {
-    // 1. Sidebar
     renderSidebar('alertas.html');
-
-    // 2. Cargar alertas iniciales de la BD
     await this.cargarTablaAlertas();
 
-    // 3. Suscribir el Observer para recibir alertas en Realtime de Supabase
+    // Suscribir el observador en tiempo real
     this.observer.suscribir((nuevaAlerta) => {
-      this.mostrarBannerAlerta(nuevaAlerta);
-      this.cargarTablaAlertas(); // Recargar la tabla automáticamente
+      this.notificarAlertaTiempoReal(nuevaAlerta);
+      this.cargarTablaAlertas(); // Recargar la lista automáticamente
     });
   }
 
@@ -32,25 +31,26 @@ class AlertasController {
       const alertas = await this.adapter.obtenerAlertas();
       tbody.innerHTML = '';
 
-      let tieneCriticas = false;
+      let tienePendientes = false;
 
       if (alertas.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">No hay alertas registradas en el sistema.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Sin alertas registradas.</td></tr>`;
         bannerCritico?.classList.add('hidden');
         return;
       }
 
       alertas.forEach(alerta => {
         const esPendiente = alerta.estado === 'pendiente';
-        if (esPendiente) tieneCriticas = true;
+        if (esPendiente) tienePendientes = true;
 
-        const fechaFormateada = new Date(alerta.fecha).toLocaleString();
+        const numSurtidor = alerta.surtidores?.numero || 'N/A';
+        const fecha = new Date(alerta.fecha).toLocaleString();
 
         tbody.innerHTML += `
-          <tr class="hover:bg-slate-50 transition-colors ${esPendiente ? 'bg-red-50/40' : ''}">
-            <td class="p-4 font-bold font-mono">Surtidor #${alerta.surtidor_id.substring(0, 5)}</td>
+          <tr class="hover:bg-slate-50 transition-colors ${esPendiente ? 'bg-red-50/50' : ''}">
+            <td class="p-4 font-bold text-slate-900">Surtidor #${numSurtidor}</td>
             <td class="p-4 font-semibold ${esPendiente ? 'text-red-600' : 'text-slate-700'}">${alerta.tipo}</td>
-            <td class="p-4 text-xs text-slate-500">${fechaFormateada}</td>
+            <td class="p-4 text-xs text-slate-500 font-mono">${fecha}</td>
             <td class="p-4">
               <span class="px-2.5 py-1 rounded-full text-xs font-bold ${
                 esPendiente ? 'bg-red-100 text-red-700' : 'bg-slate-200 text-slate-600'
@@ -60,8 +60,8 @@ class AlertasController {
             </td>
             <td class="p-4 text-right">
               ${esPendiente ? `
-                <button data-id="${alerta.id}" class="btn-atender bg-slate-800 text-white text-xs px-3 py-1.5 rounded font-bold hover:bg-slate-900 transition-colors">
-                  Marcar como Atendida
+                <button data-id="${alerta.id}" class="btn-atender bg-slate-900 hover:bg-slate-800 text-white text-xs px-3 py-1.5 rounded-lg font-bold transition-all shadow-sm">
+                  Marcar Atendida
                 </button>
               ` : '<span class="text-xs text-slate-400 italic">Atendida</span>'}
             </td>
@@ -69,32 +69,31 @@ class AlertasController {
         `;
       });
 
-      // Mostrar/Ocultar Banner Crítico superior
       if (bannerCritico) {
-        if (tieneCriticas) bannerCritico.classList.remove('hidden');
+        if (tienePendientes) bannerCritico.classList.remove('hidden');
         else bannerCritico.classList.add('hidden');
       }
 
       this.setupEventListeners();
-    } catch (error) {
-      console.error("Error al cargar alertas:", error);
+    } catch (err) {
+      console.error("Error al cargar tabla de alertas:", err);
     }
   }
 
-  mostrarBannerAlerta(alerta) {
-    alert(`🚨 ALERTA RECIBIDA EN TIEMPO REAL:\n${alerta.tipo}`);
+  notificarAlertaTiempoReal(alerta) {
+    // Feedback visual instantáneo sin recargar la página
+    alert(`🚨 ALERTA CRÍTICA EN TIEMPO REAL RECIBIDA:\nTipo: ${alerta.tipo}`);
   }
 
   setupEventListeners() {
-    // Delegación de eventos para botones de "Marcar como Atendida"
     document.querySelectorAll('.btn-atender').forEach(btn => {
       btn.addEventListener('click', async (e) => {
         const id = e.target.getAttribute('data-id');
         try {
           await this.adapter.atenderAlerta(id);
-          await this.cargarTablaAlertas(); // Recargar cambios
+          await this.cargarTablaAlertas();
         } catch (err) {
-          alert("Error al actualizar la alerta");
+          alert("Error al actualizar la alerta: " + err.message);
         }
       });
     });
