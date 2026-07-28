@@ -39,7 +39,7 @@ export function renderSidebar(activePage) {
   container.innerHTML = `
     <aside class="flex flex-col w-[260px] h-screen fixed left-0 top-0 bg-slate-900 text-white z-50 border-r border-slate-800">
       <div class="p-6 border-b border-slate-800">
-        <span class="text-xl font-black text-sky-400">GasAdmin Pro</span>
+        <span class="text-xl font-black text-sky-400">BomboClap</span>
         <p class="text-[10px] uppercase tracking-widest text-slate-400 mt-1">
           Rol: <span class="${isAdmin ? 'text-amber-400 font-bold' : 'text-emerald-400 font-bold'}">${user.rol.toUpperCase()}</span>
         </p>
